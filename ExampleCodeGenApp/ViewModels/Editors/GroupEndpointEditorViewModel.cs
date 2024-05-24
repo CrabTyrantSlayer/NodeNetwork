@@ -22,10 +22,10 @@ namespace ExampleCodeGenApp.ViewModels.Nodes
     /// </summary>
     public interface IGroupEndpointEditorViewModel
     {
-        public Endpoint Endpoint { get; }
-        public ReactiveCommand<Unit, Unit> MoveUp { get; }
-        public ReactiveCommand<Unit, Unit> MoveDown { get; }
-        public ReactiveCommand<Unit, Unit> Delete { get; }
+        Endpoint Endpoint { get; }
+        ReactiveCommand<Unit, Unit> MoveUp { get; }
+        ReactiveCommand<Unit, Unit> MoveDown { get; }
+        ReactiveCommand<Unit, Unit> Delete { get; }
     }
 
     public class GroupEndpointEditorViewModel<T> : ValueEditorViewModel<T>, IGroupEndpointEditorViewModel
