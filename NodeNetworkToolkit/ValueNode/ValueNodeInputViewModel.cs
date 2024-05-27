@@ -56,7 +56,7 @@ namespace NodeNetwork.Toolkit.ValueNode
             ValidationAction connectedValueChangedValidationAction = ValidationAction.IgnoreValidation
         )
         {
-            MaxConnections = 1;
+            MaxConnections = Int32.MaxValue;
             ConnectionValidator = pending => new ConnectionValidationResult(pending.Output is ValueNodeOutputViewModel<T>, null);
 
             var connectedValues = GenerateConnectedValuesBinding(connectionChangedValidationAction, connectedValueChangedValidationAction);

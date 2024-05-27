@@ -178,7 +178,7 @@ namespace NodeNetwork.Views
             {
                 this.Bind(ViewModel, vm => vm.IsCollapsed, v => v.CollapseButton.IsChecked).DisposeWith(d);
 
-                this.OneWayBind(ViewModel, vm => vm.Name, v => v.NameLabel.Text).DisposeWith(d);
+                this.OneWayBind(ViewModel, vm => vm.Type, v => v.NameLabel.Text).DisposeWith(d);
 
 	            this.BindList(ViewModel, vm => vm.VisibleInputs, v => v.InputsList.ItemsSource).DisposeWith(d);
 	            this.BindList(ViewModel, vm => vm.VisibleOutputs, v => v.OutputsList.ItemsSource).DisposeWith(d);

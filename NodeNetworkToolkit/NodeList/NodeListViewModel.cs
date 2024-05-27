@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reactive;
-using System.Reactive.Linq;
-using DynamicData;
+﻿using DynamicData;
+using DynamicData.Binding;
 using NodeNetwork.ViewModels;
 using ReactiveUI;
+using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using System.Reactive.Linq;
 
 namespace NodeNetwork.Toolkit.NodeList
 {
@@ -86,6 +87,15 @@ namespace NodeNetwork.Toolkit.NodeList
         public IObservableList<NodeViewModel> VisibleNodes { get; }
         #endregion
 
+        #region IsUseNodes
+        /// <summary>
+        /// Node used
+        /// </summary>
+        //public BindingList<string> IsUseNodes = new BindingList<string>();
+        public IObservableCollection<string> IsUseNodes = new ObservableCollectionExtended<string>();
+        # endregion
+
+
         #region SearchQuery
         /// <summary>
         /// The current search string that is used to filter Nodes into VisibleNodes.
@@ -104,16 +114,19 @@ namespace NodeNetwork.Toolkit.NodeList
             EmptyLabel = "No matching nodes found.";
             Display = DisplayMode.Tiles;
 
-	        var onQueryChanged = this.WhenAnyValue(vm => vm.SearchQuery)
-		        .Throttle(TimeSpan.FromMilliseconds(200), RxApp.MainThreadScheduler)
-		        .Publish();
-	        onQueryChanged.Connect();
-	        VisibleNodes = NodeTemplates.Connect()
-		        .AutoRefreshOnObservable(_ => onQueryChanged)
+            var onQueryChanged = this.WhenAnyValue(vm => vm.SearchQuery)
+                .Throttle(TimeSpan.FromMilliseconds(200), RxApp.MainThreadScheduler)
+                .Publish();
+
+            // TODO: 過濾掉已使用的 Node
+            onQueryChanged.Connect();
+            VisibleNodes = NodeTemplates.Connect()
+                .AutoRefreshOnObservable(_ => onQueryChanged)
                 .Transform(t => t.Instance)
-		        .AutoRefresh(node => node.Name)
-		        .Filter(n => (n.Name ?? "").ToUpper().Contains(SearchQuery?.ToUpper() ?? ""))
-		        .AsObservableList();
+                .AutoRefresh(node => node.Type)
+                .Filter(n => (n.Type ?? "").ToUpper().Contains(SearchQuery?.ToUpper() ?? "")
+                    && !IsUseNodes.Contains(n.Name))
+                .AsObservableList();
         }
 
         /// <summary>

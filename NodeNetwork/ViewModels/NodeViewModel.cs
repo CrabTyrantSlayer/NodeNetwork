@@ -68,6 +68,19 @@ namespace NodeNetwork.ViewModels
         private string _name;
         #endregion
 
+        #region Type
+        /// <summary>
+        /// The type of the node.
+        /// In the default view, this string is displayed at the top of the node.
+        /// </summary>
+        public string Type
+        {
+            get => _type;
+            set => this.RaiseAndSetIfChanged(ref _type, value);
+        }
+        private string _type;
+        #endregion
+
         #region HeaderIcon
         /// <summary>
         /// The icon displayed in the header of the node.
@@ -212,7 +225,7 @@ namespace NodeNetwork.ViewModels
             // Setup a default EndpointGroupViewModelFactory that will be used to create endpoint groups.
             EndpointGroupViewModelFactory = (group, allInputs, allOutputs, children, factory) => new EndpointGroupViewModel(group, allInputs, allOutputs, children, factory);
 
-            this.Name = "Untitled";
+            this.Type = "Untitled";
             this.CanBeRemovedByUser = true;
             this.Resizable = ResizeOrientation.Horizontal;
 

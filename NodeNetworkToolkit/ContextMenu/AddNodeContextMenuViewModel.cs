@@ -81,7 +81,7 @@ namespace NodeNetwork.Toolkit.ContextMenu
         {
             Commands.Add(new LabeledCommand
             {
-                Label = string.Format(LabelFormat, template.Instance.Name),
+                Label = string.Format(LabelFormat, template.Instance.Type),
                 Command = CreateNode,
                 CommandParameter = template
             });
