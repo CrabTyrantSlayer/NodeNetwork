@@ -27,6 +27,7 @@ using Splat;
 namespace NodeNetwork.Views
 {
     [TemplatePart(Name = nameof(CollapseButton), Type = typeof(ArrowToggleButton))]
+    [TemplatePart(Name = nameof(TypeLabel), Type = typeof(TextBlock))]
     [TemplatePart(Name = nameof(NameLabel), Type = typeof(TextBlock))]
     [TemplatePart(Name = nameof(HeaderIcon), Type = typeof(Image))]
     [TemplatePart(Name = nameof(InputsList), Type = typeof(ItemsControl))]
@@ -122,6 +123,7 @@ namespace NodeNetwork.Views
 		#endregion
 
 		private ArrowToggleButton CollapseButton { get; set; }
+        private TextBlock TypeLabel { get; set; }
         private TextBlock NameLabel { get; set; }
         private Image HeaderIcon { get; set; }
         private ItemsControl InputsList { get; set; }
@@ -144,6 +146,7 @@ namespace NodeNetwork.Views
         {
             CollapseButton = GetTemplateChild(nameof(CollapseButton)) as ArrowToggleButton;
             NameLabel = GetTemplateChild(nameof(NameLabel)) as TextBlock;
+            TypeLabel = GetTemplateChild(nameof(TypeLabel)) as TextBlock;
             HeaderIcon = GetTemplateChild(nameof(HeaderIcon)) as Image;
             InputsList = GetTemplateChild(nameof(InputsList)) as ItemsControl;
             OutputsList = GetTemplateChild(nameof(OutputsList)) as ItemsControl;
@@ -178,9 +181,10 @@ namespace NodeNetwork.Views
             {
                 this.Bind(ViewModel, vm => vm.IsCollapsed, v => v.CollapseButton.IsChecked).DisposeWith(d);
 
-                this.OneWayBind(ViewModel, vm => vm.Type, v => v.NameLabel.Text).DisposeWith(d);
+                this.OneWayBind(ViewModel, vm => vm.Type, v => v.TypeLabel.Text).DisposeWith(d);
+                this.OneWayBind(ViewModel, vm => vm.Name, v => v.NameLabel.Text).DisposeWith(d);
 
-	            this.BindList(ViewModel, vm => vm.VisibleInputs, v => v.InputsList.ItemsSource).DisposeWith(d);
+                this.BindList(ViewModel, vm => vm.VisibleInputs, v => v.InputsList.ItemsSource).DisposeWith(d);
 	            this.BindList(ViewModel, vm => vm.VisibleOutputs, v => v.OutputsList.ItemsSource).DisposeWith(d);
 	            this.OneWayBind(ViewModel, vm => vm.VisibleEndpointGroups, v => v.EndpointGroupsList.ItemsSource).DisposeWith(d);
 
