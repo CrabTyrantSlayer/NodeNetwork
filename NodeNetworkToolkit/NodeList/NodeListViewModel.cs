@@ -3,9 +3,9 @@ using DynamicData.Binding;
 using NodeNetwork.ViewModels;
 using ReactiveUI;
 using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+using System.Collections.Specialized;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Linq;
 
 namespace NodeNetwork.Toolkit.NodeList
@@ -114,11 +114,18 @@ namespace NodeNetwork.Toolkit.NodeList
             EmptyLabel = "No matching nodes found.";
             Display = DisplayMode.Tiles;
 
-            var onQueryChanged = this.WhenAnyValue(vm => vm.SearchQuery)
+            var isUseNodesChanged = Observable.FromEventPattern<NotifyCollectionChangedEventHandler, NotifyCollectionChangedEventArgs>(
+                    h => IsUseNodes.CollectionChanged += h,
+                    h => IsUseNodes.CollectionChanged -= h)
+                .Select(_ => Unit.Default);
+
+            var searchQueryChanged = this.WhenAnyValue(vm => vm.SearchQuery)
                 .Throttle(TimeSpan.FromMilliseconds(200), RxApp.MainThreadScheduler)
+                .Select(_ => Unit.Default);
+
+            var onQueryChanged = Observable.Merge(isUseNodesChanged, searchQueryChanged)
                 .Publish();
 
-            // TODO: 過濾掉已使用的 Node
             onQueryChanged.Connect();
             VisibleNodes = NodeTemplates.Connect()
                 .AutoRefreshOnObservable(_ => onQueryChanged)
@@ -138,6 +145,11 @@ namespace NodeNetwork.Toolkit.NodeList
         public void AddNodeType<T>(Func<T> factory) where T : NodeViewModel
         {
             NodeTemplates.Add(new NodeTemplate(factory));
+        }
+
+        public void ClearUseNodes()
+        {
+            IsUseNodes.Clear();
         }
     }
 }
