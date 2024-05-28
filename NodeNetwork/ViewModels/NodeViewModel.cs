@@ -203,7 +203,7 @@ namespace NodeNetwork.ViewModels
 		public Size Size
 		{
 			get => _size;
-			internal set => this.RaiseAndSetIfChanged(ref _size, value);
+			set => this.RaiseAndSetIfChanged(ref _size, value);
 		}
 		private Size _size;
         #endregion
