@@ -66,7 +66,7 @@
                     </ItemsControl.ItemContainerStyle>
                 </ItemsControl>
 
-                <Line x:Name="cutLine" Stroke="LightGray" StrokeDashArray="2, 4" StrokeThickness="1" />
+                <Line x:Name="cutLine" Stroke="Red" StrokeDashArray="2, 4" StrokeThickness="1" />
 
                 <Rectangle x:Name="selectionRectangle" Stroke="White" Fill="Transparent" StrokeDashArray="2, 4" StrokeThickness="1"/>
 

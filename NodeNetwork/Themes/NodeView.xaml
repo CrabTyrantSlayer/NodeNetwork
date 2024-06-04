@@ -6,7 +6,7 @@
                     xmlns:reactiveUi="http://reactiveui.net">
     <Style TargetType="{x:Type views:NodeView}">
         <Setter Property="Background" Value="#5D9CEC"/>
-        <Setter Property="Foreground" Value="#FFFFFF"/>
+        <Setter Property="Foreground" Value="#FAFAFA"/>
         <Setter Property="TitleFontFamily" Value="Segoe UI Semibold"/>
         <Setter Property="TitleFontSize" Value="18"/>
         <Setter Property="BorderBrush" Value="Orange"/>
@@ -101,11 +101,23 @@
                                 </Thumb>
                                 <StackPanel>
                                     <Canvas x:Name="HeaderTopMargin" Width="auto" Height="10"/>
-                                    <DockPanel>
-                                        <Image x:Name="HeaderIcon" MaxWidth="{TemplateBinding ArrowSize}" MaxHeight="{TemplateBinding ArrowSize}" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                                        <TextBlock x:Name="TypeLabel" TextWrapping="Wrap" Background="Transparent" Foreground="{TemplateBinding Foreground}" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center"
-                                                   FontFamily="{TemplateBinding TitleFontFamily}" FontSize="{TemplateBinding TitleFontSize}" Margin="10,0,0,0"/>
-                                        <TextBlock x:Name="NameLabel"
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        
+                                        <Image Grid.Column="0"
+                                               Grid.Row="0"
+                                               x:Name="HeaderIcon" MaxWidth="{TemplateBinding ArrowSize}" MaxHeight="{TemplateBinding ArrowSize}" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                        <TextBlock Grid.Column="0"
+                                                   Grid.Row="0"
+                                                   x:Name="NameLabel"
                                                    TextWrapping="Wrap"
                                                    Background="Transparent"
                                                    Foreground="{TemplateBinding Foreground}"
@@ -114,10 +126,25 @@
                                                    VerticalAlignment="Center"
                                                    TextAlignment="Center"
                                                    FontFamily="{TemplateBinding TitleFontFamily}"
-                                                   FontSize="{TemplateBinding TitleFontSize}"
-                                                   Margin="10,0,0,0" />
-                                        <controls:ArrowToggleButton x:Name="CollapseButton" Width="{TemplateBinding ArrowSize}" Height="{TemplateBinding ArrowSize}" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20,0,10,0"/>
-                                    </DockPanel>
+                                                   FontSize="24"
+                                                   Margin="10,0,10,0" />
+                                        <TextBlock Grid.Column="0"
+                                                   Grid.Row="1"
+                                                   Grid.ColumnSpan="3"
+                                                   x:Name="TypeLabel" 
+                                                   Background="Transparent" 
+                                                   Foreground="{TemplateBinding Foreground}"
+                                                   DockPanel.Dock="Left"
+                                                   HorizontalAlignment="Left"
+                                                   VerticalAlignment="Center"
+                                                   TextAlignment="Center"
+                                                   FontFamily="{TemplateBinding TitleFontFamily}" 
+                                                   FontSize="{TemplateBinding TitleFontSize}" 
+                                                   Margin="10,0,0,0"/>
+                                        <controls:ArrowToggleButton Grid.Column="2"
+                                                                    Grid.Row="0"
+                                                                    x:Name="CollapseButton" Width="{TemplateBinding ArrowSize}" Height="{TemplateBinding ArrowSize}" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20,0,10,0"/>
+                                    </Grid>
                                     <Canvas x:Name="HeaderBottomMargin" Width="auto" Height="3"/>
 
                                     <ContentPresenter x:Name="LeadingControlPresenter" Style="{TemplateBinding LeadingControlPresenterStyle}"/>

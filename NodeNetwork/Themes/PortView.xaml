@@ -5,8 +5,8 @@
     <Style TargetType="{x:Type views:PortView}">
         <Setter Property="RegularStroke" Value="#9E9E9E"/>
         <Setter Property="RegularFill" Value="#E0E0E0"/>
-        <Setter Property="ConnectedStroke" Value="#AEAEAE"/>
-        <Setter Property="ConnectedFill" Value="#F0F0F0"/>
+        <Setter Property="ConnectedStroke" Value="#3655DB"/>
+        <Setter Property="ConnectedFill" Value="#3655DB"/>
         <Setter Property="HighlightStroke" Value="#30FFFFFF"/>
         <Setter Property="HighlightFill" Value="#30FFFFFF"/>
         <Setter Property="ErrorStroke" Value="#F44336"/>
